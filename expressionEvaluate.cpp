@@ -58,8 +58,7 @@ int evaluateInfixExpression(const string &expression)
             while (!ops.empty() && ops.top() != '(')
             { // 处理括号内的表达式
                 int val2 = values.top();
-                values.pop(); // 取出两个操作数
-                values.pop();
+                values.pop(); // 修复：每个操作数只弹出一次，避免栈下溢。
                 int val1 = values.top();
                 values.pop();
                 char op = ops.top();

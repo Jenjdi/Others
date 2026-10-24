@@ -18,7 +18,8 @@ namespace AVL
 		pair<K, V> _val;
 		int _bf;
 
-		struct AVLTreeNode(const pair<K, V>& val)
+		// 修复：构造函数不能带 struct 关键字。
+        AVLTreeNode(const pair<K, V>& val)
 			:_val(val)
 			, _left(nullptr)
 			, _right(nullptr)
@@ -27,7 +28,7 @@ namespace AVL
 		{}
 	};
 
-	
+
 
 	template<class K, class V>
 	struct AVLTree
@@ -46,7 +47,7 @@ namespace AVL
 				return nullptr;
 			}
 
-			//�������'#'��, �������ȴ������, �ٽ�������. 
+			//�������'#'��, �������ȴ������, �ٽ�������.
 			Node* newnode = new Node({a[*i], a[*i]});
 			(*i)++;
 			newnode->_left = _creattree(a, i);
@@ -88,12 +89,12 @@ namespace AVL
 				}
 				else
 				{
-					//���������Kֵ��ͬ, ���˵����ʧ��~ 
+					//���������Kֵ��ͬ, ���˵����ʧ��~
 					return false;
 				}
 			}
 
-			//�ߵ�����, ��ʾcur�ߵ�����, Ȼ��parentָ��Ҫ����λ�õĸ���. 
+			//�ߵ�����, ��ʾcur�ߵ�����, Ȼ��parentָ��Ҫ����λ�õĸ���.
 			cur = new Node(val);
 			if (parent->_val.first < val.first)
 			{
@@ -109,7 +110,7 @@ namespace AVL
 			}
 			cur->_parent = parent;
 
-			//����ƽ������~ 
+			//����ƽ������~
 			while (parent)
 			{
 				if (parent->_val.first > cur->_val.first) //��������, ƽ������--
@@ -121,7 +122,7 @@ namespace AVL
 					parent->_bf++;
 				}
 
-				//���ݸ��ڵ��bf������ֱ���~ 
+				//���ݸ��ڵ��bf������ֱ���~
 				if (parent->_bf == 0)
 				{
 					//��ʱ���½���, ֱ��break����
@@ -135,7 +136,7 @@ namespace AVL
 				}
 				else if (parent->_bf == 2 || parent->_bf == -2)
 				{
-					//��ʱ��Ҫ��ת���д���~ 
+					//��ʱ��Ҫ��ת���д���~
 					//��ת�����Ļ�, ��Ҫ���������
 					if (parent->_bf == -2 && cur->_bf == -1)
 					{
@@ -146,13 +147,13 @@ namespace AVL
 						}
 						RotateR(parent);
 						//cout << "RotateR();//��ʱҪ��������." << endl;
-						//RotateR();//��ʱҪ��������. 
+						//RotateR();//��ʱҪ��������.
 					}
 					else if (parent->_bf == 2 && cur->_bf == 1)
 					{
 						RotateL(parent);
 						//cout << "RotateL();//��ʱҪ��������." << endl;
-						//RotateL();//��ʱҪ��������. 
+						//RotateL();//��ʱҪ��������.
 					}
 					else if (parent->_bf == -2 && cur->_bf == 1)
 					{
@@ -172,7 +173,7 @@ namespace AVL
 
 					break;
 				}//��ת
-			}//����ƽ������~ 
+			}//����ƽ������~
 
 			return true;
 		}//Push
@@ -186,7 +187,7 @@ namespace AVL
 
 			parent->_left = SubLR;
 			if (SubLR) SubLR->_parent = parent;
-			
+
 			SubL->_right = parent;
 			parent->_parent = SubL;
 
@@ -198,7 +199,7 @@ namespace AVL
 			else
 			{
 				SubL->_parent = pparent;
-				
+
 				if (pparent->_left == parent)
 				{
 					pparent->_left = SubL;
@@ -217,7 +218,7 @@ namespace AVL
 			Node* pparent = node->_parent;
 			Node* parent = node;
 			Node* SubR = node->_right;
-			if (SubR == nullptr) 
+			if (SubR == nullptr)
 				int a = 10;
 			Node* SubRL = node->_right->_left;
 
@@ -389,14 +390,14 @@ namespace AVL
 			int bf = _Height(root->_right) - _Height(root->_left);
 			if(abs(bf) >= 2) return false;
 			if (root->_bf != bf) return false;
-			
+
 			return left && right;
 		}
 
 	};
 	void TestAVLTree4()
 	{
-		//ע��: ��ʱAVL��������ƽ�����, ��Ϊ������ǿ������һ����~ 
+		//ע��: ��ʱAVL��������ƽ�����, ��Ϊ������ǿ������һ����~
 		AVLTree<char, int> tree;
 		string s = "abd##e#h##cf##g##";
 
